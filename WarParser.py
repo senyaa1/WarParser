@@ -96,13 +96,16 @@ for i, header in enumerate(headers):
 
 
 for i, entry in enumerate(result["hits"]["hits"]):
-    safe_add(ws, i + 2, 1, entry["_source"]["last_name"])
-    safe_add(ws, i + 2, 2, entry["_source"]["first_name"])
-    safe_add(ws, i + 2, 3, entry["_source"]["middle_name"])
-    safe_add(ws, i + 2, 4, entry["_source"]["birth_date"])
-    safe_add(ws, i + 2, 5, entry["_source"]["birth_place"])
-    safe_add(ws, i + 2, 6, entry["_source"]["military_unit_name"])
-    safe_add(ws, i + 2, 7, entry["_source"]["vibitie_prichina"])
+    try:
+        safe_add(ws, i + 2, 1, entry["_source"]["last_name"])
+        safe_add(ws, i + 2, 2, entry["_source"]["first_name"])
+        safe_add(ws, i + 2, 3, entry["_source"]["middle_name"])
+        safe_add(ws, i + 2, 4, entry["_source"]["birth_date"])
+        safe_add(ws, i + 2, 5, entry["_source"]["birth_place"])
+        safe_add(ws, i + 2, 6, entry["_source"]["military_unit_name"])
+        safe_add(ws, i + 2, 7, entry["_source"]["vibitie_prichina"])
+    except:
+        continue
 
 if table_path == "":
     table_path = "table.xlsx"
