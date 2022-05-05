@@ -89,7 +89,7 @@ wb = Workbook()
 ws = wb.active
 
 headers = ["Фамилия", "Имя", "Отчество",
-           "Дата рождения", "Место рождения", "Место службы", "Причина выбытия"]
+           "Дата рождения", "Место рождения", "Место службы", "Причина выбытия", "Место выбытия", "Дата выбытия", "Ссылка"]
 
 for i, header in enumerate(headers):
     ws.cell(1, i + 1, header)
@@ -104,12 +104,17 @@ for i, entry in enumerate(result["hits"]["hits"]):
         safe_add(ws, i + 2, 5, entry["_source"]["birth_place"])
         safe_add(ws, i + 2, 6, entry["_source"]["military_unit_name"])
         safe_add(ws, i + 2, 7, entry["_source"]["vibitie_prichina"])
+        safe_add(ws, i + 2, 8, entry["_source"]["vibitie_mesto"])
+        safe_add(ws, i + 2, 9, entry["_source"]["vibitie_date_from"])
+
+        url = f"https://gwar.mil.ru/heroes/{entry['_source']['__type']}{entry['_source']['id']}/"
+        safe_add(ws, i + 2, 10, url)
     except:
         continue
 
 if table_path == "":
     table_path = "table.xlsx"
-    
+
 wb.save(table_path)
 
 print(
